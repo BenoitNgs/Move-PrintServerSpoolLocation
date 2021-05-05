@@ -4,6 +4,7 @@ $SpoolRegKeyName = "DefaultSpoolDirectory"
 $SpoolLocation = Get-ItemPropertyValue -Path $SpoolRegKeyPath -Name $SpoolRegKeyName
 Write-Host "Old SPOOL location: $SpoolLocation"
 $SpoolMoveLocation = "D:\spool\PRINTERS"
+Write-Host "New SPOOL location: $SpoolLocation"
 
 New-Item -Path $SpoolMoveLocation -ItemType "directory"
 
@@ -13,6 +14,6 @@ Set-Acl -Path $SpoolMoveLocation -AclObject $ACL
 
 Set-Itemproperty -path $SpoolRegKeyPath -Name $SpoolRegKeyName -Value $SpoolMoveLocation
 
-Write-Host "New SPOOL location: $(Get-ItemPropertyValue -Path $SpoolRegKeyPath -Name $SpoolRegKeyName)"
+Write-Host "SPOOL location configured: $(Get-ItemPropertyValue -Path $SpoolRegKeyPath -Name $SpoolRegKeyName)"
 
 Restart-Service -Name spooler
